@@ -45,8 +45,10 @@ export default function Home() {
 
         // get svg image size
         document.body.appendChild(svgNode);
-        const width = svgNode.getBoundingClientRect().width;
-        const height = svgNode.getBoundingClientRect().height;
+        const initWidth = svgNode.getBoundingClientRect().width;
+        const initHeight = svgNode.getBoundingClientRect().height;
+        const width = svgNode.getBoundingClientRect().width * scale;
+        const height = svgNode.getBoundingClientRect().height * scale;
         if (svgNode.parentNode) {
           svgNode.parentNode.removeChild(svgNode);
         }
@@ -59,10 +61,10 @@ export default function Home() {
         const dataUrl = canvas.toDataURL("image/png");
         setOutputImage({
           src: dataUrl,
-          width: width * scale,
-          height: height * scale,
-          initWidth: width,
-          initHeight: height,
+          width,
+          height,
+          initWidth,
+          initHeight,
         });
       }
     };
@@ -130,23 +132,27 @@ export default function Home() {
           onChange={onChangeeHandler}
         />
 
-        <label
-          htmlFor="default-range"
-          className="flex justify-between mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          <span>Scale Ratio: {scale}</span>
-        </label>
-        <input
-          id="default-range"
-          type="range"
-          value={scale}
-          step="1"
-          min="1"
-          max="50"
-          disabled={!outputImage}
-          onChange={onRatioChangeHandler}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-        />
+        {svgElement && outputImage && (
+          <>
+            <label
+              htmlFor="default-range"
+              className="flex justify-between mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              <span>Scale Ratio: {scale}</span>
+            </label>
+            <input
+              id="default-range"
+              type="range"
+              value={scale}
+              step="1"
+              min="1"
+              max="50"
+              disabled={!outputImage}
+              onChange={onRatioChangeHandler}
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+            />
+          </>
+        )}
       </div>
 
       {svgElement && outputImage && (
