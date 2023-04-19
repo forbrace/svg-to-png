@@ -1,12 +1,16 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState, useCallback } from "react";
+import {debounce} from 'lodash/debounce';
+
+const MAX_IMAGE_WIDTH = 3000;
 
 export default function Home() {
   const [svgElement, setSvgElement] = useState();
   const [outputImage, setOutputImage] = useState();
   const [svgDataUrl, setSvgDataUrl] = useState();
   const [scale, setScale] = useState(2);
+  const [scaleMax, setScaleMax] = useState(10);
   const [fileName, setFileName] = useState("image.png");
 
   let fileReader;
@@ -34,40 +38,44 @@ export default function Home() {
   const onChangeeHandler = (event) => handleFileChosen(event.target.files[0]);
 
   useEffect(() => {
+    if (!svgElement) {
+      return;
+    }
     const canvas = document.createElement("canvas");
 
     const image = new Image();
 
-    const loadHandler = () => {
-      if (svgElement) {
-        const svgNode = new DOMParser().parseFromString(svgElement, "text/html")
-          .body.childNodes[0];
+    image.removeEventListener("load", loadHandler);
+    
+    function loadHandler() {
+      const svgNode = new DOMParser().parseFromString(svgElement, "text/html")
+        .body.childNodes[0];
 
-        // get svg image size
-        document.body.appendChild(svgNode);
-        const initWidth = svgNode.getBoundingClientRect().width;
-        const initHeight = svgNode.getBoundingClientRect().height;
-        const width = svgNode.getBoundingClientRect().width * scale;
-        const height = svgNode.getBoundingClientRect().height * scale;
-        if (svgNode.parentNode) {
-          svgNode.parentNode.removeChild(svgNode);
-        }
-        canvas.setAttribute("width", width);
-        canvas.setAttribute("height", height);
-
-        const context = canvas.getContext("2d");
-        context.drawImage(image, 0, 0, width, height);
-
-        const dataUrl = canvas.toDataURL("image/png");
-        setOutputImage({
-          src: dataUrl,
-          width,
-          height,
-          initWidth,
-          initHeight,
-        });
+      // get svg image size
+      document.body.appendChild(svgNode);
+      const initWidth = svgNode.getBoundingClientRect().width;
+      setScaleMax(parseInt((MAX_IMAGE_WIDTH / initWidth), 10));
+      const initHeight = svgNode.getBoundingClientRect().height;
+      const width = svgNode.getBoundingClientRect().width * scale;
+      const height = svgNode.getBoundingClientRect().height * scale;
+      if (svgNode.parentNode) {
+        svgNode.parentNode.removeChild(svgNode);
       }
-    };
+      canvas.setAttribute("width", width);
+      canvas.setAttribute("height", height);
+
+      const context = canvas.getContext("2d");
+      context.drawImage(image, 0, 0, width, height);
+
+      const dataUrl = canvas.toDataURL("image/png");
+      setOutputImage({
+        src: dataUrl,
+        width,
+        height,
+        initWidth,
+        initHeight,
+      });
+    }
 
     image.addEventListener("load", loadHandler);
 
@@ -75,6 +83,7 @@ export default function Home() {
 
     return () => {
       image.removeEventListener("load", loadHandler);
+      
     };
   }, [svgElement, svgDataUrl, scale]);
 
@@ -146,7 +155,7 @@ export default function Home() {
               value={scale}
               step="1"
               min="1"
-              max="50"
+              max={scaleMax}
               disabled={!outputImage}
               onChange={onRatioChangeHandler}
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
