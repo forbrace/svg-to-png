@@ -80,7 +80,7 @@ export default function Home() {
     setScale(event.target.value);
   };
 
-  const downloadHandler = async (event) => {
+  const downloadHandler = (event) => {
     event.preventDefault();
 
     fetch(event.target.href, {
