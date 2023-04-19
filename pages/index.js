@@ -1,7 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState, useCallback } from "react";
-import {debounce} from 'lodash/debounce';
 
 const MAX_IMAGE_WIDTH = 3000;
 
