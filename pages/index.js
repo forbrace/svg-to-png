@@ -43,8 +43,6 @@ export default function Home() {
     const canvas = document.createElement("canvas");
 
     const image = new Image();
-
-    image.removeEventListener("load", loadHandler);
     
     function loadHandler() {
       const svgNode = new DOMParser().parseFromString(svgElement, "text/html")
@@ -127,7 +125,7 @@ export default function Home() {
         </h1>
 
         <label
-          className="block mt-7 mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          className="block font-mono mt-7 mb-2 text-sm font-medium text-gray-900 dark:text-white"
           htmlFor="svg"
         >
           Select a file:
@@ -144,7 +142,7 @@ export default function Home() {
           <>
             <label
               htmlFor="default-range"
-              className="flex justify-between mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="flex font-mono justify-between mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               <span>Scale Ratio: {scale}</span>
             </label>
@@ -202,7 +200,7 @@ export default function Home() {
                 </div>
 
                 {outputImage && (
-                  <div className="mt-3 text-center">
+                  <div className="mt-3 text-center font-mono">
                     Size: {parseInt(outputImage.initWidth, 10)}&times;
                     {parseInt(outputImage.initHeight, 10)}
                   </div>
@@ -250,8 +248,8 @@ export default function Home() {
                 </div>
 
                 {outputImage && (
-                  <div className="mt-3 text-center">
-                    Size: {parseInt(outputImage.width, 10)}&times;
+                  <div className="mt-3 text-center font-mono">
+                    Intrinsic size: {parseInt(outputImage.width, 10)}&times;
                     {parseInt(outputImage.height, 10)}
                   </div>
                 )}
