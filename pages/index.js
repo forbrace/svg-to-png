@@ -70,6 +70,7 @@ export default function Home() {
         height,
         initWidth,
         initHeight,
+        svgViewbox,
       });
     }
 
@@ -199,8 +200,7 @@ export default function Home() {
 
                 {outputImage && (
                   <div className="mt-2 text-center font-mono">
-                    viewBox: {parseInt(outputImage.initWidth, 10)}&times;
-                    {parseInt(outputImage.initHeight, 10)}
+                    viewBox: {outputImage.svgViewbox?.x} {outputImage.svgViewbox?.y} {outputImage.svgViewbox?.width} {outputImage.svgViewbox?.height}
                   </div>
                 )}
               </div>
