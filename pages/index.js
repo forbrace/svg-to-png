@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback } from "react";
 const MAX_IMAGE_WIDTH = 3000;
 
 export default function Home() {
-  const [svgElement, setSvgElement] = useState();
+  const [svgElementStr, setSvgElementStr] = useState();
   const [outputImage, setOutputImage] = useState();
   const [svgDataUrl, setSvgDataUrl] = useState();
   const [scale, setScale] = useState(2);
@@ -18,7 +18,7 @@ export default function Home() {
     const content = fileReader.result;
     const svgNode = new DOMParser().parseFromString(content, "text/html").body
       .childNodes[0];
-    setSvgElement(content);
+    setSvgElementStr(content);
     const svgData = new XMLSerializer().serializeToString(svgNode);
     const svgDataBase64 = btoa(unescape(encodeURIComponent(svgData)));
     setSvgDataUrl(`data:image/svg+xml;charset=utf-8;base64,${svgDataBase64}`);
@@ -37,7 +37,7 @@ export default function Home() {
   const onFileChangeHandler = (event) => handleFileChosen(event.target.files[0]);
 
   useEffect(() => {
-    if (!svgElement) {
+    if (!svgElementStr) {
       return;
     }
     const canvas = document.createElement("canvas");
@@ -45,19 +45,18 @@ export default function Home() {
     const image = new Image();
 
     function loadHandler() {
-      const svgNode = new DOMParser().parseFromString(svgElement, "text/html")
+      const svgNode = new DOMParser().parseFromString(svgElementStr, "text/html")
         .body.childNodes[0];
 
-      // get svg image size
-      document.body.appendChild(svgNode);
-      const initWidth = svgNode.getBoundingClientRect().width;
+      const svgViewbox = svgNode.viewBox.baseVal;
+      const initWidth = svgViewbox.width;
+      const initHeight = svgViewbox.height;
+      
       setScaleMax(parseInt(MAX_IMAGE_WIDTH / initWidth, 10));
-      const initHeight = svgNode.getBoundingClientRect().height;
-      const width = svgNode.getBoundingClientRect().width * scale;
-      const height = svgNode.getBoundingClientRect().height * scale;
-      if (svgNode.parentNode) {
-        svgNode.parentNode.removeChild(svgNode);
-      }
+
+      const width = initWidth * scale;
+      const height = initHeight * scale;
+
       canvas.setAttribute("width", width);
       canvas.setAttribute("height", height);
 
@@ -81,7 +80,7 @@ export default function Home() {
     return () => {
       image.removeEventListener("load", loadHandler);
     };
-  }, [svgElement, svgDataUrl, scale]);
+  }, [svgElementStr, svgDataUrl, scale]);
 
   const onRatioChangeHandler = (event) => {
     setScale(event.target.value);
@@ -137,7 +136,7 @@ export default function Home() {
           onChange={onFileChangeHandler}
         />
 
-        {svgElement && outputImage && (
+        {svgElementStr && outputImage && (
           <>
             <label
               htmlFor="default-range"
@@ -160,7 +159,7 @@ export default function Home() {
         )}
       </div>
       <main className="grow">
-      {svgElement && outputImage && (
+      {svgElementStr && outputImage && (
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-7 mx-auto max-w-[1000px]">
             <div>
@@ -170,8 +169,8 @@ export default function Home() {
                 </h2>
                 <div className="flex bg-gray-100 items-center justify-center relative h-[270px] overflow-hidden rounded-xl border border-dashed border-gray-400 p-4">
                   <div
-                    className={`relative z-10 ${styles.svgInput}`}
-                    dangerouslySetInnerHTML={{ __html: svgElement }}
+                    className={`relative z-10 grow shrink-0 text-center ${styles.svgInput}`}
+                    dangerouslySetInnerHTML={{ __html: svgElementStr }}
                   />
                   <svg
                     className="absolute inset-0 h-full w-full stroke-gray-900/10"
@@ -200,7 +199,7 @@ export default function Home() {
 
                 {outputImage && (
                   <div className="mt-2 text-center font-mono">
-                    Size: {parseInt(outputImage.initWidth, 10)}&times;
+                    viewBox: {parseInt(outputImage.initWidth, 10)}&times;
                     {parseInt(outputImage.initHeight, 10)}
                   </div>
                 )}
