@@ -6,8 +6,11 @@ function classNames(...classes) {
 }
 
 export default function Header() {
-  const { systemTheme, theme, setTheme } = useTheme();
-  const currentTheme = theme === "system" ? systemTheme : theme;
+  const { theme, setTheme } = useTheme();
+
+  function toggleTheme() {
+    setTheme(theme == "dark" ? "light" : "dark");
+  }
 
   return (
     <header>
@@ -19,7 +22,7 @@ export default function Header() {
           SVG to PNG
         </div>
 
-        <div className="flex flex-1 justify-end">
+        <div className="flex flex-1 justify-end items-center">
           <a href="https://github.com/forbrace/svg-to-png">
             <svg
               className="block mx-auto"
@@ -37,24 +40,24 @@ export default function Header() {
             </svg>
           </a>
           <div className="flex items-center ml-4 relative">
-            <input
-              type="checkbox"
-              className="appearance-none absolute w-full h-full opacity-0 cursor-pointer"
-              id="theme"
-              onChange={() =>
-                theme == "dark" ? setTheme("light") : setTheme("dark")
-              }
-            />
             <label
               htmlFor="theme"
-              className={`flex justify-between items-center w-12 h-6 rounded-2xl px-2 relative label bg-black dark:bg-white cursor-pointer`}
+              className="flex justify-between items-center w-12 h-6 rounded-2xl px-2 relative label bg-black dark:bg-white cursor-pointer text-white dark:text-black"
+              tabIndex={0}
+              onClick={toggleTheme}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.key === " " && event.preventDefault();
+                  toggleTheme();
+                }
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
-                stroke={ currentTheme === "light" ? "#fff" : "#000"}
+                stroke="currentColor"
                 className="w-3 h-3"
               >
                 <path
@@ -68,7 +71,7 @@ export default function Header() {
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
-                stroke={ currentTheme === "light" ? "#fff" : "#000"}
+                stroke="currentColor"
                 className="w-3 h-3"
               >
                 <path
@@ -79,9 +82,7 @@ export default function Header() {
               </svg>
 
               <span
-                className={`w-4 h-4 absolute bg-white dark:bg-black ${
-                  currentTheme === "light" ? "left-1" : "right-1"
-                } top-1 transition-all bg-white rounded-full`}
+                className={`w-4 h-4 absolute bg-white dark:bg-black left-1 dark:left-auto dark:right-1 top-1 transition-all rounded-full`}
               />
             </label>
           </div>
