@@ -160,13 +160,13 @@ export default function Home() {
                     <h2 className="text-center text-3xl font-extrabold mb-3">
                       SVG
                     </h2>
-                    <div className="flex bg-gray-100 items-center justify-center relative h-[270px] overflow-hidden rounded-xl border border-dashed border-gray-400 p-4">
+                    <div className="flex  items-center justify-center relative h-[270px] overflow-hidden rounded-xl border border-dashed border-gray-400 p-4">
                       <div
                         className={`relative z-10 grow shrink-0 text-center ${styles.svgInput}`}
                         dangerouslySetInnerHTML={{ __html: svgElementStr }}
                       />
                       <svg
-                        className="absolute inset-0 h-full w-full stroke-gray-900/10"
+                        className="absolute inset-0 h-full w-full stroke-gray-900/10 dark:stroke-gray-800/80"
                         fill="none"
                       >
                         <defs>
@@ -205,7 +205,7 @@ export default function Home() {
                     <h2 className="text-center text-3xl font-extrabold mb-3">
                       PNG
                     </h2>
-                    <div className="flex bg-gray-100 items-center justify-center relative h-[270px] overflow-hidden rounded-xl border border-dashed border-gray-400 p-4">
+                    <div className="flex items-center justify-center relative h-[270px] overflow-hidden rounded-xl border border-dashed border-gray-400 p-4">
                       {outputImage && (
                         <img
                           src={outputImage.src}
@@ -216,7 +216,7 @@ export default function Home() {
                         />
                       )}
                       <svg
-                        className="absolute inset-0 h-full w-full stroke-gray-900/10"
+                        className="absolute inset-0 h-full w-full stroke-gray-900/10 dark:stroke-gray-800/80"
                         fill="none"
                       >
                         <defs>
