@@ -39,7 +39,7 @@ export default function Header() {
           <div className="flex items-center ml-4 relative">
             <input
               type="checkbox"
-              className="appearance-none absolute w-full h-full opacity-0"
+              className="appearance-none absolute w-full h-full opacity-0 cursor-pointer"
               id="theme"
               onChange={() =>
                 theme == "dark" ? setTheme("light") : setTheme("dark")
@@ -47,7 +47,7 @@ export default function Header() {
             />
             <label
               htmlFor="theme"
-              className={`flex justify-between items-center w-10 h-5 rounded-2xl px-1 relative label bg-black dark:bg-white`}
+              className={`flex justify-between items-center w-12 h-6 rounded-2xl px-2 relative label bg-black dark:bg-white cursor-pointer`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +79,7 @@ export default function Header() {
               </svg>
 
               <span
-                className={`w-3 h-3 absolute bg-white dark:bg-black ${
+                className={`w-4 h-4 absolute bg-white dark:bg-black ${
                   currentTheme === "light" ? "left-1" : "right-1"
                 } top-1 transition-all bg-white rounded-full`}
               />
