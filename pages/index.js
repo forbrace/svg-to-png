@@ -117,7 +117,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col mx-auto max-w-[1000px]">
+    <div className="flex min-h-screen flex-col mx-auto max-w-[1000px] px-6">
       <Head>
         <title>SVG to PNG Converter</title>
         <meta name="description" content="Convert SVG to PNG images online" />
@@ -126,10 +126,7 @@ export default function Home() {
 
       <Header />
 
-      <div className="mx-auto max-w-[400px] w-full">
-        {svgElementStr && outputImage && <></>}
-      </div>
-      <main className="grow flex items-center">
+      <main className="grow flex">
         <div className="grow">
           <div className="mx-auto max-w-[400px] w-full my-6">
             <input
@@ -138,11 +135,11 @@ export default function Home() {
               accept=".svg"
               onChange={onFileChangeHandler}
               className="block w-full text-sm text-slate-500
-                file:mr-4 file:py-2 file:px-4
+                file:mr-4 file:py-3 file:px-7
                 file:rounded-full file:border-0
                 file:text-sm file:font-semibold
-                file:bg-violet-50 file:text-violet-700
-                hover:file:bg-violet-100
+                file:bg-blue-50 file:text-blue-700
+                hover:file:bg-blue-100
               "
             />
           </div>
