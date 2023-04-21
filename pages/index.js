@@ -3,6 +3,7 @@ import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 
 import Header from "../components/Header";
+import ImgBgPattern from "../components/ImgBgPattern";
 
 const MAX_IMAGE_WIDTH = 3000;
 
@@ -152,34 +153,12 @@ export default function Home() {
                   <h2 className="text-center text-3xl font-extrabold mb-3">
                     SVG
                   </h2>
-                  <div className="flex items-center justify-center relative h-[270px] overflow-hidden rounded-xl border border-dashed border-gray-400 p-4">
+                  <div className="flex bg-gray-200 dark:bg-transparent items-center justify-center relative h-[270px] overflow-hidden rounded-xl border border-dashed border-gray-400 p-4">
                     <div
                       className={`relative z-10 grow shrink-0 text-center ${styles.svgInput}`}
                       dangerouslySetInnerHTML={{ __html: svgElementStr }}
                     />
-                    <svg
-                      className="absolute inset-0 h-full w-full stroke-gray-900/10 dark:stroke-gray-800/80"
-                      fill="none"
-                    >
-                      <defs>
-                        <pattern
-                          id="pattern-1"
-                          x="0"
-                          y="0"
-                          width="10"
-                          height="10"
-                          patternUnits="userSpaceOnUse"
-                        >
-                          <path d="M-3 13 15-5M-5 5l18-18M-1 21 17 3"></path>
-                        </pattern>
-                      </defs>
-                      <rect
-                        stroke="none"
-                        fill="url(#pattern-1)"
-                        width="100%"
-                        height="100%"
-                      ></rect>
-                    </svg>
+                    <ImgBgPattern />
                   </div>
 
                   {outputImage && (
@@ -197,7 +176,7 @@ export default function Home() {
                   <h2 className="text-center text-3xl font-extrabold mb-3">
                     PNG
                   </h2>
-                  <div className="flex items-center justify-center relative h-[270px] overflow-hidden rounded-xl border border-dashed border-gray-400 p-4">
+                  <div className="flex bg-gray-200 dark:bg-transparent items-center justify-center relative h-[270px] overflow-hidden rounded-xl border border-dashed border-gray-400 p-4">
                     {outputImage && (
                       <img
                         src={outputImage.src}
@@ -207,29 +186,7 @@ export default function Home() {
                         alt=""
                       />
                     )}
-                    <svg
-                      className="absolute inset-0 h-full w-full stroke-gray-900/10 dark:stroke-gray-800/80"
-                      fill="none"
-                    >
-                      <defs>
-                        <pattern
-                          id="pattern-2"
-                          x="0"
-                          y="0"
-                          width="10"
-                          height="10"
-                          patternUnits="userSpaceOnUse"
-                        >
-                          <path d="M-3 13 15-5M-5 5l18-18M-1 21 17 3"></path>
-                        </pattern>
-                      </defs>
-                      <rect
-                        stroke="none"
-                        fill="url(#pattern-2)"
-                        width="100%"
-                        height="100%"
-                      ></rect>
-                    </svg>
+                    <ImgBgPattern />
                   </div>
 
                   {outputImage && (
@@ -297,7 +254,9 @@ export default function Home() {
       </main>
 
       <footer className="text-center my-5 flex justify-center">
-        <a href="https://youtu.be/oavMtUWDBTM" target="_blank">ololo</a>
+        <a href="https://youtu.be/oavMtUWDBTM" target="_blank">
+          ololo
+        </a>
       </footer>
     </div>
   );
