@@ -211,7 +211,7 @@ export default function Home() {
                           src={outputImage.src}
                           width={parseInt(outputImage.width, 10)}
                           height={parseInt(outputImage.height, 10)}
-                          className="object-contain relative z-10"
+                          className="object-contain relative z-10 max-h-full max-w-full"
                           alt=""
                         />
                       )}

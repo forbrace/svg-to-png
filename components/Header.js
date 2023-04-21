@@ -36,7 +36,7 @@ export default function Header() {
               ></path>
             </svg>
           </a>
-          <div className="flex items-center ml-2 relative">
+          <div className="flex items-center ml-4 relative">
             <input
               type="checkbox"
               className="appearance-none absolute w-full h-full opacity-0"
