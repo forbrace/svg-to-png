@@ -254,7 +254,7 @@ export default function Home() {
       </main>
 
       <footer className="text-center my-5 flex justify-center">
-        Created by
+        Created by{" "}
         <a href="https://paputsa.com" target="_blank" className="underline">
           Dima Paputsa
         </a>
