@@ -254,8 +254,9 @@ export default function Home() {
       </main>
 
       <footer className="text-center my-5 flex justify-center">
-        <a href="https://youtu.be/oavMtUWDBTM" target="_blank">
-          ololo
+        Created by
+        <a href="https://paputsa.com" target="_blank" className="underline">
+          Dima Paputsa
         </a>
       </footer>
     </div>
