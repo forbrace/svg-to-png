@@ -255,8 +255,12 @@ export default function Home() {
 
       <footer className="text-center my-5">
         Created by{" "}
-        <a href="https://paputsa.com" target="_blank" className="underline">
-          Dima Paputsa
+        <a
+          href="https://csscraftsman.com"
+          target="_blank"
+          className="underline"
+        >
+          csscraftsman
         </a>
       </footer>
     </div>
