@@ -1,7 +1,7 @@
-import { nanoid } from "nanoid";
+import { useId } from "react";
 
 const ImgBgPattern = () => {
-  const id = nanoid();
+  const id = useId();
 
   return (
     <svg
